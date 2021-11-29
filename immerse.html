@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>immerse</title>
+    <link link rel="shortcut icon" href="pic/favicon.ico">
+    <link rel="stylesheet" href="immerse.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css" integrity="sha512-vZWT27aGmde93huNyIV/K7YsydxaafHLynlJa/4aPy28/R1a/IxewUH4MWo7As5I33hpQ7JS24kwqy/ciIFgvg==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Eagle+Lake&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="nav light_bgc"><img id="logo" src="pic/logo.png" alt="">
+      <h5>亮暗模式</h5>
+      <div class="toggle" id="toggle">
+        <div class="toggle_button"></div>
+      </div>
+    </div>
+    <div id="app">
+      <header id="header">
+        <div class="container-fluid">
+          <div class="col-lg-12">
+            <video autoplay="" loop="" muted="">
+              <source src="videos/Jurassic_World.mp4">
+            </video>
+            <div class="title">
+              <h1 class="name">侏羅紀世界</h1>
+              <h5 class="time">2015年   124 分鐘</h5>
+              <h5 class="theme">動作與冒險類</h5><br>
+              <h4 class="price">$360</h4>
+              <button class="cart" @click="addTitleMovie(titleMovie,$event)">＋加入購物車</button>
+              <button class="infos" @click="isTitleDetailOpen=!isTitleDetailOpen">看介紹</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section id="hot_movies">
+        <div class="container-fluid hot_bgc">
+          <div class="col-lg-12">
+            <div class="title_movies"><img id="blur" src="pic/blur.png" alt="">
+              <h1>熱門電影</h1>
+            </div>
+            <div class="hot_movies" @wheel.prevent="wheel($event)">
+              <div class="cards" :class="{open:isCartOpen}">
+                <div class="card" v-for="movie in hot_movies">
+                  <div class="left">
+                    <div class="photo" :style="bgcss(movie.cover)"></div>
+                  </div>
+                  <div class="right">
+                    <h2>{{movie.name}} </h2>
+                    <h4>{{movie.type}}</h4>
+                    <p>{{movie.description.substring(0,67)}}... </p>
+                    <div class="price">${{movie.price}}</div>
+                    <button @click="add(movie,$event)">＋加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="scroll_box">
+              <h5 class="scroll_text">SCROLL</h5>
+              <div class="line"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="search_movies">
+        <div class="container-fluid search_bgc">
+          <label></label>
+          <input placeholder="輸入電影名稱等關鍵字" v-model="keyword">
+          <select v-model="keyword"> 
+            <option value="">電影類型</option>
+            <option v-for="type in movieType" :value="type">{{type}}</option>
+          </select><i class="fas fa-search"></i>
+          <div class="row">
+            <div class="col-xs-12 col-xs-12 movie">
+              <div class="movies">
+                <div class="keyword">
+                  <h4 v-if="keyword.length&gt;0">搜尋 "{{keyword}}" 找到以下電影</h4>
+                </div>
+                <div class="movie" v-for="moviec in movies" v-if="moviec.name.indexOf(keyword)!=-1 || moviec.type.indexOf(keyword)!=-1">
+                  <div class="moviec">
+                    <div class="top" @click="isDetailOpen=true, movieDetail(moviec,$event)">
+                      <div class="movie_photo" :style="bgcss(moviec.cover)"></div>
+                      <h4>觀看電影介紹 </h4>
+                    </div>
+                    <div class="bottom" @click="isDetailOpen=true, movieDetail(moviec,$event)">
+                      <h4 class="movie_name">{{moviec.name}}</h4>
+                      <h5 class="movie_type">{{moviec.type}}</h5><br>
+                      <h4 class="movie_price">${{moviec.price}}</h4>
+                    </div>
+                    <button class="cart" @click="add(moviec,$event)">＋加入購物車</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row more_row">
+            <div class="col-xs-12 more" @click="more" v-if="keyword.length&lt;=0"><i class="fa fa-plus-circle"></i>
+              <h4>顯示更多</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+      <article id="title_article" :class="{open:isTitleDetailOpen}">
+        <div class="container introduce_bgc">
+          <div class="introduce">
+            <div class="row">
+              <div class="close" @click="isTitleDetailOpen=false"> <i class="fa fa-times-circle"></i></div>
+              <div class="col-lg-4 col-md-5 col-sm-3">
+                <div class="movie_photo"></div>
+              </div>
+              <div class="col-lg-8 col-md-7">
+                <div class="col-sm-12">
+                  <h2>侏羅紀世界</h2>
+                  <div class="col-lg-offset-10 col-md-offset-9 hidden-xs hidden-sm">
+                    <div class="level">
+                      <div class="level_bd"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <h5 class="type">動作與冒險類</h5>
+                  <h5 class="time">2015年  124分鐘</h5>
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                  <p>22年前，約翰哈蒙德博士有個夢想：建立一座主題樂園，讓世界各地的遊客可以體驗親眼目睹真實恐龍的驚奇。現在他的夢想終於實現了。歡迎來到侏羅紀世界，這座設施完備的奢華渡假村可容納數萬名遊客，讓他們每天都能近距離接觸活生生的史前恐龍，感受無限驚奇與讚嘆。侏羅紀世界位於哥斯大黎加的離島，裡面建造了熙熙攘攘的主要大街，擁有讓人驚奇不斷的先進設施。</p>
+                </div>
+              </div>
+            </div>
+            <div class="row cart_offset">
+              <div class="col-lg-offset-10 col-md-offset-9 col-sm-offset-8 col-xs-offset-6">
+                <h3 class="price">$360</h3>
+                <button class="cart" @click="addTitleMovie(titleMovie,$event)"> ＋加入購物車</button>
+              </div>
+            </div>
+            <div class="row comments">
+              <div class="col-sm-12 user">
+                <div class="col-lg-2 col-sm-3">
+                  <div class="user_photos"></div>
+                </div>
+                <div class="col-lg-10 col-sm-9">
+                  <div class="col-lg-12">
+                    <div class="user_name">momo</div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i>
+                      <div class="float">
+                        <div class="love"><i class="fa fa-heart"></i></div>
+                        <div class="ellipsis"><i class="fa fa-ellipsis-v"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="user_comments">
+                      <h5>很好看，買了不後悔</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 user">
+                <div class="col-lg-2 col-sm-3">
+                  <div class="user_photos_02"></div>
+                </div>
+                <div class="col-lg-10 col-sm-9">
+                  <div class="col-lg-12">
+                    <div class="user_name">necoco</div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                      <div class="float">
+                        <div class="love"><i class="fa fa-heart"></i></div>
+                        <div class="ellipsis"><i class="fa fa-ellipsis-v"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="user_comments">
+                      <h5>CP值高，值得購買！</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 comments_end">
+                <h5>沒有更多評論了</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article id="movie_article" :class="{open:isDetailOpen}">
+        <div class="container introduce_bgc">
+          <div class="introduce" v-for="detail in MovieDetail">
+            <div class="row">
+              <div class="close" @click="isDetailOpen=false"> <i class="fa fa-times-circle"></i></div>
+              <div class="col-lg-4 col-md-5 col-sm-3">
+                <div class="movie_photo" :style="bgcss(detail.cover)"></div>
+              </div>
+              <div class="col-lg-8 col-md-7">
+                <div class="col-sm-12">
+                  <h2>{{detail.name}}</h2>
+                  <div class="col-lg-offset-10 col-md-offset-9 hidden-xs hidden-sm">
+                    <div class="level" :style="bgcss(detail.level)">
+                      <div class="level_bd"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <h5 class="type">{{detail.type}}</h5>
+                  <h5 class="time">{{detail.time}}</h5>
+                </div>
+                <div class="col-lg-12 col-sm-12">
+                  <p>{{detail.description}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row cart_offset"> 
+              <div class="col-lg-offset-10 col-md-offset-9 col-sm-offset-8 col-xs-offset-6">
+                <h3 class="price">${{detail.price}}</h3>
+                <button class="cart" @click="add(detail,$event)">＋加入購物車</button>
+              </div>
+            </div>
+            <div class="row comments">
+              <div class="col-sm-12 user">
+                <div class="col-lg-2 col-sm-3">
+                  <div class="user_photos"></div>
+                </div>
+                <div class="col-lg-10 col-sm-9">
+                  <div class="col-lg-12">
+                    <div class="user_name">momo</div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="far fa-star"></i>
+                      <div class="float">
+                        <div class="love"><i class="fa fa-heart"></i></div>
+                        <div class="ellipsis"><i class="fa fa-ellipsis-v"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="user_comments">
+                      <h5>很好看，買了不後悔</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 user">
+                <div class="col-lg-2 col-sm-3">
+                  <div class="user_photos_02"></div>
+                </div>
+                <div class="col-lg-10 col-sm-9">
+                  <div class="col-lg-12">
+                    <div class="user_name">necoco</div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="star"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                      <div class="float">
+                        <div class="love"><i class="fa fa-heart"></i></div>
+                        <div class="ellipsis"><i class="fa fa-ellipsis-v"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="user_comments">
+                      <h5>CP值高，值得購買！</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12 comments_end">
+                <h5>沒有更多評論了</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <footer id="footer">
+        <div class="container">
+          <h2>immerse</h2>
+        </div>
+      </footer>
+      <div class="copyright">
+        <h5>© Copyright 2021 immerse 純屬練習並無商業用途</h5>
+      </div>
+      <div class="fixed-control"><i class="fa fa-shopping-cart" @click="isCartOpen=!isCartOpen"></i>
+        <div class="circle" v-if="cart.length&gt;0" @click="isCartOpen=!isCartOpen">
+          <div class="float" v-if="cart.length&gt;0">{{cart.length}} </div>
+        </div>
+      </div>
+      <div class="control" :class="{show: isCartOpen}">
+        <div class="panel">
+          <div class="close" @click="isCartOpen=false"> <i class="fa fa-times-circle"></i></div><i class="fa fa-shopping-cart" style="font-size:40px"></i>
+          <ul>
+            <li v-for="(movie,id) in cart">
+              <div class="cover" :style="bgcss(movie.cover)"></div>
+              <h5>{{movie.name}}</h5>
+              <div class="float">
+                <div class="price">${{movie.price}}</div>
+                <div class="remove" @click="cart.splice(id,1)">-</div>
+              </div>
+            </li>
+            <li v-if="!cart.length">
+              <h4>購物車沒有商品</h4>
+            </li>
+          </ul>
+          <hr>
+          <h2>{{totalPrice}} $</h2>
+        </div>
+      </div>
+      <div class="buybox" :style="bgcss(currentMovie.cover)" v-if="currentMovie"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="immerse.js"></script>
+  </body>
+</html>
