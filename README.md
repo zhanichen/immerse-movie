@@ -29,5 +29,5 @@ https://zhanichen.github.io/immerse-movie/
 
 
 
-##### 備註：此專案為吳哲宇課程電影介面實作練習作品之延伸immerse品牌電影作品
+##### 備註：此專案為吳哲宇課程電影介面實作練習作品之延伸immerse品牌完整作品
 
