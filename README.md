@@ -1,5 +1,5 @@
 ## immerse電影購買網站
-immerse意思為沈浸在某種氣氛中，表示即使電影是虛構世界，也會認為自己正身處其中，以電影購買網為題構思品牌「immerse」與其LOGO、網站編排、配色，網站設有深色模式與淺色模式切換鈕供使用者選擇，主要以vue.js 實作互動功能，包含關鍵字搜尋、電影類型篩選與購物車計算系統，並以Boostrap與css調整RWD。
+immerse意思為沈浸在某種氣氛中，表示即使電影是虛構世界，也會認為自己正身處其中，以電影購買網為題構思品牌「immerse」與其LOGO、網站編排、配色，網站設有深色模式與淺色模式切換鈕供使用者選擇，主要以vue.js 實作互動功能，包含關鍵字搜尋、電影類型篩選與購物車系統，並以Boostrap與css調整RWD。
 
 ## demo
 ![image](https://github.com/zhanichen/immerse-movie/blob/main/README-pic/demo/hot_movies.png?raw=true)
