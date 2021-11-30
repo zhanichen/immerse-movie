@@ -18,9 +18,10 @@
 ## live demo
 https://zhanichen.github.io/immerse-movie/
 ## 此專案使用哪些技術
-* pug、sass
-* vue.js實作開關視窗、關鍵字搜尋、類型篩選
+* 使用pug、sass 撰寫使程式易讀
+* vue.js實作開關視窗、關鍵字搜尋、類型篩選、購物車金額計算
 * TweenMax實作scroll滾動效果
+* jQuery css切換
 * Boostrap RWD
 * CSS RWD
 
