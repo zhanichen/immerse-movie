@@ -1,0 +1,281 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title immerse
+    link(link rel="shortcut icon" href="pic/favicon.ico")
+    link(rel='stylesheet' href='immerse.css')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css' integrity='sha512-vZWT27aGmde93huNyIV/K7YsydxaafHLynlJa/4aPy28/R1a/IxewUH4MWo7As5I33hpQ7JS24kwqy/ciIFgvg==' crossorigin='anonymous')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Eagle+Lake&display=swap')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap')
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css")
+  body
+
+    //- 導覽列
+    .nav.light_bgc
+      img#logo(src='pic/logo.png' alt='')
+      h5 亮暗模式
+      .toggle#toggle
+        .toggle_button
+      
+    //- vue 
+    #app
+      //- 開頭頁
+      header#header
+        .container-fluid
+          .col-lg-12
+            video(autoplay='' loop='' muted='')
+              source(src='videos/Jurassic_World.mp4') 
+            .title
+              h1.name 侏羅紀世界
+              h5.time 2015年   124 分鐘
+              h5.theme 動作與冒險類
+              br
+              h4.price $360
+              button.cart(@click='addTitleMovie(titleMovie,$event)') ＋加入購物車
+              button.infos(@click='isTitleDetailOpen=!isTitleDetailOpen') 看介紹
+      
+      //- 熱門電影
+      section#hot_movies
+        .container-fluid.hot_bgc
+          .col-lg-12
+            .title_movies
+              img#blur(src="pic/blur.png", alt="")
+              h1 熱門電影
+            .hot_movies(@wheel.prevent='wheel($event)')
+              .cards(:class='{open:isCartOpen}')
+                .card(v-for='movie in hot_movies')
+                  .left
+                    .photo(:style='bgcss(movie.cover)')
+                  .right
+                    h2 {{movie.name}} 
+                    h4 {{movie.type}}
+                    p {{movie.description.substring(0,67)}}... 
+                    .price ${{movie.price}}
+                    button(@click='add(movie,$event)') ＋加入購物車
+            .scroll_box
+              h5.scroll_text SCROLL
+              .line
+      
+      //- 電影總覽
+      section#search_movies
+        .container-fluid.search_bgc
+          label
+          input(placeholder="輸入電影名稱等關鍵字",v-model="keyword")
+          select(v-model="keyword") 
+            option(value="") 電影類型
+            option(v-for="type in movieType", :value="type") {{type}}
+          i.fas.fa-search
+          .row
+            .col-xs-12.col-xs-12.movie
+              .movies
+                .keyword
+                  h4(v-if="keyword.length>0") 搜尋 "{{keyword}}" 找到以下電影
+                .movie(v-for="moviec in movies",v-if="moviec.name.indexOf(keyword)!=-1 || moviec.type.indexOf(keyword)!=-1")
+                  .moviec
+                    .top(@click='isDetailOpen=true, movieDetail(moviec,$event)')
+                      .movie_photo(:style="bgcss(moviec.cover)")
+                      h4 觀看電影介紹 
+                    .bottom(@click='isDetailOpen=true, movieDetail(moviec,$event)')
+                      h4.movie_name {{moviec.name}}
+                      h5.movie_type {{moviec.type}}
+                      br
+                      h4.movie_price ${{moviec.price}}
+                    button.cart(@click='add(moviec,$event)') ＋加入購物車
+          .row.more_row
+            .col-xs-12.more(@click='more',v-if="keyword.length<=0")
+              i.fa.fa-plus-circle
+              h4 顯示更多
+      
+      //- 開頭電影介紹頁
+      article#title_article(:class='{open:isTitleDetailOpen}')
+        .container.introduce_bgc
+          .introduce
+            .row
+              .close(@click='isTitleDetailOpen=false') 
+                i.fa.fa-times-circle
+              .col-lg-4.col-md-5.col-sm-3
+                .movie_photo
+              .col-lg-8.col-md-7
+                .col-sm-12
+                  h2 侏羅紀世界
+                  .col-lg-offset-10.col-md-offset-9.hidden-xs.hidden-sm
+                    .level
+                      .level_bd
+                .col-sm-12
+                  h5.type 動作與冒險類
+                  h5.time 2015年  124分鐘
+                .col-lg-12.col-sm-12
+                  p 22年前，約翰哈蒙德博士有個夢想：建立一座主題樂園，讓世界各地的遊客可以體驗親眼目睹真實恐龍的驚奇。現在他的夢想終於實現了。歡迎來到侏羅紀世界，這座設施完備的奢華渡假村可容納數萬名遊客，讓他們每天都能近距離接觸活生生的史前恐龍，感受無限驚奇與讚嘆。侏羅紀世界位於哥斯大黎加的離島，裡面建造了熙熙攘攘的主要大街，擁有讓人驚奇不斷的先進設施。
+            .row.cart_offset
+              .col-lg-offset-10.col-md-offset-9.col-sm-offset-8.col-xs-offset-6
+                h3.price $360
+                button.cart(@click='addTitleMovie(titleMovie,$event)')  ＋加入購物車
+            .row.comments
+              .col-sm-12.user
+                .col-lg-2.col-sm-3
+                  .user_photos
+                .col-lg-10.col-sm-9
+                  .col-lg-12
+                    .user_name momo
+                  .col-lg-12
+                    .star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.far.fa-star
+                      .float
+                        .love
+                          i.fa.fa-heart
+                          //- i.far.fa-heart
+                        .ellipsis
+                          i.fa.fa-ellipsis-v
+                  .col-lg-12
+                    .user_comments
+                      h5 很好看，買了不後悔
+              .col-sm-12.user
+                .col-lg-2.col-sm-3
+                  .user_photos_02
+                .col-lg-10.col-sm-9
+                  .col-lg-12
+                    .user_name necoco
+                  .col-lg-12
+                    .star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      .float
+                        .love
+                          i.fa.fa-heart
+                          //- i.far.fa-heart
+                        .ellipsis
+                          i.fa.fa-ellipsis-v
+                  .col-lg-12
+                    .user_comments
+                      h5 CP值高，值得購買！
+              .col-sm-12.comments_end
+                h5 沒有更多評論了
+
+      
+      //- 電影介紹頁
+      article#movie_article(:class='{open:isDetailOpen}')
+        .container.introduce_bgc
+          .introduce(v-for="detail in MovieDetail")
+            .row
+              .close(@click='isDetailOpen=false') 
+                i.fa.fa-times-circle
+              .col-lg-4.col-md-5.col-sm-3
+                .movie_photo(:style='bgcss(detail.cover)')
+              .col-lg-8.col-md-7
+                .col-sm-12
+                  h2 {{detail.name}}
+                  .col-lg-offset-10.col-md-offset-9.hidden-xs.hidden-sm
+                    .level(:style='bgcss(detail.level)')
+                      .level_bd
+                .col-sm-12
+                  h5.type {{detail.type}}
+                  h5.time {{detail.time}}
+                .col-lg-12.col-sm-12
+                  p {{detail.description}}
+            .row.cart_offset  
+              .col-lg-offset-10.col-md-offset-9.col-sm-offset-8.col-xs-offset-6
+                h3.price ${{detail.price}}
+                button.cart(@click='add(detail,$event)') ＋加入購物車
+            .row.comments
+              .col-sm-12.user
+                .col-lg-2.col-sm-3
+                  .user_photos
+                .col-lg-10.col-sm-9
+                  .col-lg-12
+                    .user_name momo
+                  .col-lg-12
+                    .star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.far.fa-star
+                      .float
+                        .love
+                          i.fa.fa-heart
+                        .ellipsis
+                          i.fa.fa-ellipsis-v
+                  .col-lg-12
+                    .user_comments
+                      h5 很好看，買了不後悔
+              .col-sm-12.user
+                .col-lg-2.col-sm-3
+                  .user_photos_02
+                .col-lg-10.col-sm-9
+                  .col-lg-12
+                    .user_name necoco
+                  .col-lg-12
+                    .star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      i.fa.fa-star
+                      .float
+                        .love
+                          i.fa.fa-heart
+                          //- i.far.fa-heart
+                        .ellipsis
+                          i.fa.fa-ellipsis-v
+                  .col-lg-12
+                    .user_comments
+                      h5 CP值高，值得購買！
+              .col-sm-12.comments_end
+                h5 沒有更多評論了
+
+
+
+      //- 頁尾
+      footer#footer
+        .container
+          h2 immerse
+      //- 版權頁
+      .copyright
+        h5 © Copyright 2021 immerse 純屬練習並無商業用途
+
+
+
+
+      //- 購物車頁面
+      .fixed-control
+        i.fa.fa-shopping-cart(@click='isCartOpen=!isCartOpen')
+        .circle(v-if='cart.length>0' @click='isCartOpen=!isCartOpen')
+          .float(v-if='cart.length>0') {{cart.length}} 
+      .control(:class='{show: isCartOpen}')
+        .panel
+          .close(@click='isCartOpen=false') 
+            i.fa.fa-times-circle
+          i.fa.fa-shopping-cart(style='font-size:40px')
+          ul
+            li(v-for='(movie,id) in cart')
+              .cover(:style='bgcss(movie.cover)')
+              h5 {{movie.name}}
+              .float
+                .price ${{movie.price}}
+                .remove(@click='cart.splice(id,1)') -
+            li(v-if='!cart.length')
+              h4 購物車沒有商品
+          hr
+          h2 {{totalPrice}} $
+      .buybox(:style='bgcss(currentMovie.cover)' v-if='currentMovie')
+
+
+
+
+
+
+    //- cdn  
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
+    script(src='immerse.js')
