@@ -82,6 +82,7 @@ video {
   left: 0;
   top: 0;
   position: fixed;
+  min-width: 100%;
 }
 
 .title {
@@ -386,6 +387,9 @@ section#hot_movies .container-fluid .col-lg-12 {
   position: relative;
   min-width: 530px;
 }
+#search_movies .container-fluid {
+  padding: 0;
+}
 #search_movies select {
   background-color: #c6c6c6;
   border-radius: 50px;
@@ -421,16 +425,13 @@ section#hot_movies .container-fluid .col-lg-12 {
 
 .col-xs-12.movie {
   position: relative;
-  padding-left: 80px;
 }
 
 .movie {
   width: 200px;
   height: 100%;
-  position: relative;
   display: inline-block;
-  margin-right: 28px;
-  margin-top: 30px;
+  margin: 30px 22px;
 }
 .movie .moviec {
   -webkit-box-shadow: 0px 5px 25px 5px rgba(0, 0, 0, 0.25);
