@@ -1,4 +1,5 @@
 ## immerse電影購買網站
+immerse意思為沈浸在某種氣氛中，即使電影是虛構世界，也會認為自己正身處其中，以電影購買網為題構思品牌「immerse」與其LOGO、網站編排、配色，網站設有深色模式與淺色模式切換鈕供使用者選擇，主要以vue.js 實作互動功能，包含關鍵字搜尋、篩選與購物車計算系統，並結合Boostrap與css調整RWD。
 
 ## demo
 ![image](https://github.com/zhanichen/immerse-movie/blob/main/README-pic/demo/hot_movies.png?raw=true)
@@ -17,6 +18,7 @@
 
 ## live demo
 https://zhanichen.github.io/immerse-movie/
+
 ## 此專案使用哪些技術
 * 使用pug、sass 撰寫使程式易讀
 * vue.js實作開關視窗、關鍵字搜尋、類型篩選、購物車金額計算
@@ -27,5 +29,5 @@ https://zhanichen.github.io/immerse-movie/
 
 
 
-##### 備註：此專案為吳哲宇課程電影介面實作練習作品之延伸作品
+##### 備註：此專案為吳哲宇課程電影介面實作練習作品之延伸immerse品牌電影作品
 
