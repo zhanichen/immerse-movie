@@ -26,7 +26,7 @@ https://zhanichen.github.io/immerse-movie/
 * 使用pug、sass 撰寫使程式易讀
 * vue.js實作開關視窗、關鍵字搜尋、類型篩選、購物車金額計算
 * TweenMax實作scroll，增加互動效果
-* jQuery css切換，供使用者選擇主題
+* jQuery css切換，供使用者選擇喜愛主題
 * Boostrap RWD
 * CSS RWD
 
