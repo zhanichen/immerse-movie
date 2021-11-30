@@ -7,6 +7,7 @@ immerse意為沈浸在某種氣氛中，即使電影是虛構世界，也會認�
 ![image](https://github.com/zhanichen/immerse-movie/blob/main/README-pic/demo/movies.png?raw=true)
 ![image](https://github.com/zhanichen/immerse-movie/blob/main/README-pic/demo/more%20movies.png?raw=true)
 ![image](https://github.com/zhanichen/immerse-movie/blob/main/README-pic/demo/introduce.png?raw=true)
+![image](https://github.com/zhanichen/immerse-movie/blob/main/README-pic/demo/cart.png?raw=true)
 
 ## 亮暗模式    
 ![image](https://github.com/zhanichen/immerse-movie/blob/main/README-pic/dark&light/dark.png?raw=true)
