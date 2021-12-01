@@ -387,6 +387,7 @@ section#hot_movies .container-fluid .col-lg-12 {
   background-color: #1b1b1b;
   position: relative;
   min-width: 530px;
+  min-height: 1600px;
 }
 #search_movies .container-fluid {
   padding: 0;
