@@ -329,6 +329,7 @@ section#hot_movies .container-fluid .col-lg-12 {
 .scroll_box {
   left: 45%;
   bottom: 80px;
+  width: 300px;
 }
 .scroll_box h5 {
   color: #d9d9d9;
@@ -388,6 +389,7 @@ section#hot_movies .container-fluid .col-lg-12 {
   position: relative;
   min-width: 530px;
   min-height: 1600px;
+  overflow-x: hidden;
 }
 #search_movies .container-fluid {
   padding: 0;
@@ -701,6 +703,7 @@ article#title_article .introduce .col-lg-8, #movie_article .introduce .col-lg-8 
 }
 article#title_article .introduce h2, #movie_article .introduce h2 {
   color: #d9d9d9;
+  display: inline-block;
 }
 article#title_article .introduce h5, article#title_article .introduce p, #movie_article .introduce h5, #movie_article .introduce p {
   color: #b2b2b3;
