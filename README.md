@@ -23,10 +23,10 @@ immerse 意為沈浸在某種氣氛中，即使電影是虛構世界，也會認
 https://zhanichen.github.io/immerse-movie/
 
 ## 此專案使用哪些技術
-* 使用pug、sass 撰寫使程式易讀
-* vue.js實作開關視窗、關鍵字搜尋、類型篩選、購物車金額計算、資料載入
-* TweenMax實作scroll，增加互動效果
-* jQuery css切換，供使用者選擇喜愛主題
+* 使用 pug 、 sass 撰寫使程式易讀
+* vue.js 實作開關視窗、關鍵字搜尋、類型篩選、購物車金額計算、資料載入
+* TweenMax 實作 scroll，增加互動效果
+* jQuery css 切換，供使用者選擇喜愛主題
 * Boostrap RWD
 * CSS RWD
 
