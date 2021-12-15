@@ -1070,6 +1070,10 @@ i.fa.fa-heart:active {
     -webkit-transform: translate(-80px, 34px);
             transform: translate(-80px, 34px);
   }
+
+  #search_movies input {
+    margin-top: 170px;
+  }
 }
 @media screen and (max-width: 768px) {
   article#movie_article .col-lg-8.col-md-7 .col-sm-12 h2, article#movie_article .col-lg-8.col-md-7 .col-sm-12 h5, #title_article .col-lg-8.col-md-7 .col-sm-12 h2, #title_article .col-lg-8.col-md-7 .col-sm-12 h5 {
@@ -1087,6 +1091,10 @@ i.fa.fa-heart:active {
     -webkit-transform: scale(0.6);
             transform: scale(0.6);
     left: -53px;
+  }
+
+  #search_movies input {
+    margin-top: 170px;
   }
 }
 #toggle.light {
